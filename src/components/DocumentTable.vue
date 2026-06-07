@@ -52,4 +52,8 @@ function getAvgConfidence(doc) {
 
 <style scoped>
 .doc-table-wrap { overflow-x: auto; }
+
+table {
+  min-width: 760px;
+}
 </style>

@@ -214,4 +214,41 @@ function logout() {
   width: 100%;
 }
 .logout-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+@media (max-width: 760px) {
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    position: sticky;
+    z-index: 20;
+    box-shadow: var(--shadow-md);
+  }
+
+  .sidebar-brand {
+    padding: 12px 14px;
+  }
+
+  .sidebar-nav {
+    flex: none;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 10px 10px;
+    scrollbar-width: none;
+  }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+    padding: 8px 10px;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+}
 </style>

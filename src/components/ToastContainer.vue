@@ -133,4 +133,18 @@ const toast = useToast()
   transform: translateX(400px);
   opacity: 0;
 }
+
+@media (max-width: 520px) {
+  .toast-container {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    max-width: none;
+  }
+
+  .toast {
+    min-width: 0;
+    width: 100%;
+  }
+}
 </style>

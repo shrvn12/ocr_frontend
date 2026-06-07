@@ -297,4 +297,27 @@ onUnmounted(() => stopCamera())
 
 .tips-list { display: flex; flex-direction: column; gap: 6px; padding-left: 18px; }
 .tips-list li { font-size: 13px; color: var(--text-2); }
+
+@media (max-width: 520px) {
+  .online-indicator {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .camera-area,
+  .dropzone {
+    padding: 24px 14px;
+  }
+
+  .camera-controls,
+  .preview-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .camera-controls .btn,
+  .preview-actions .btn {
+    justify-content: center;
+  }
+}
 </style>

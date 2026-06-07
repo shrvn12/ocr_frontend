@@ -103,4 +103,29 @@ function statusCls(s) {
   padding: 2px 4px;
 }
 .remove-btn:hover { color: var(--error); }
+
+@media (max-width: 560px) {
+  .queue-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .queue-item-info {
+    width: 100%;
+  }
+
+  .queue-item-name {
+    max-width: none;
+  }
+
+  .queue-item-right {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .progress-bar {
+    flex: 1;
+    width: auto;
+  }
+}
 </style>

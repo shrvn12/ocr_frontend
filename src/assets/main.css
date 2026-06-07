@@ -66,12 +66,15 @@ h3 { font-size: 1rem; font-weight: 600; }
 .page {
   padding: 28px 32px;
   max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   margin-bottom: 24px;
 }
 
@@ -200,3 +203,56 @@ tbody tr:last-child td { border-bottom: none; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
 .grid { display: grid; }
+
+@media (max-width: 760px) {
+  body {
+    font-size: 13px;
+  }
+
+  .layout {
+    min-height: 100svh;
+    height: auto;
+    overflow: visible;
+    flex-direction: column;
+  }
+
+  .main-content {
+    overflow: visible;
+  }
+
+  .page {
+    padding: 18px 14px 28px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 18px;
+  }
+
+  .page-header > .btn,
+  .page-header > a.btn,
+  .page-header > button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-header .btn,
+  .section-header select {
+    width: 100%;
+  }
+
+  .btn {
+    min-height: 38px;
+  }
+}

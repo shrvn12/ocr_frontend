@@ -1,8 +1,26 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1'
 
+function getHealthURL(baseURL) {
+  return `${baseURL.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '')}/health`
+}
+
 class APIClient {
   constructor() {
     this.baseURL = API_BASE_URL
+    this.healthURL = getHealthURL(API_BASE_URL)
+  }
+
+  async checkHealth() {
+    const response = await fetch(this.healthURL, {
+      method: 'GET',
+      cache: 'no-store',
+    })
+
+    if (!response.ok) {
+      throw new Error(`Health check failed: HTTP ${response.status}`)
+    }
+
+    return response
   }
 
   getAuthToken() {

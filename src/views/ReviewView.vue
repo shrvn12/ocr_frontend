@@ -335,6 +335,23 @@ function getAvgConfidence() {
   .review-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 760px) {
+  .header-left,
+  .header-status {
+    width: 100%;
+  }
+
+  .header-left {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-status {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
 .image-panel { }
 
 .image-placeholder {
@@ -359,7 +376,7 @@ function getAvgConfidence() {
 
 .meta-row { display: flex; justify-content: space-between; font-size: 13px; }
 .meta-key { color: var(--text-3); }
-.meta-val { font-weight: 500; }
+.meta-val { font-weight: 500; min-width: 0; overflow-wrap: anywhere; text-align: right; }
 
 .fields-panel { }
 
@@ -410,6 +427,29 @@ function getAvgConfidence() {
   padding-top: 16px;
   margin-top: 4px;
   border-top: 1px solid var(--border);
+}
+
+@media (max-width: 520px) {
+  .meta-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-val {
+    text-align: left;
+  }
+
+  .field-meta,
+  .action-bar,
+  .final-status {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-bar .btn {
+    justify-content: center;
+  }
 }
 
 .final-status {

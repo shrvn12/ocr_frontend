@@ -117,4 +117,16 @@ async function submit() {
   font-size: 12px;
   color: var(--text-3);
 }
+
+@media (max-width: 520px) {
+  .login-page {
+    align-items: stretch;
+    padding: 18px 14px;
+  }
+
+  .login-card {
+    padding: 28px 20px;
+    margin: auto 0;
+  }
+}
 </style>

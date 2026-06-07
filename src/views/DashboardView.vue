@@ -81,6 +81,26 @@ const recentDocs  = computed(() => [...store.documents].sort((a, b) => new Date(
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+@media (max-width: 760px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--border);

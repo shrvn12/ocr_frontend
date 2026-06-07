@@ -141,6 +141,10 @@ const sorted = computed(() => {
 
 @media (max-width: 760px) {
   .search-layout { grid-template-columns: 1fr; }
+  .sort-wrap,
+  .sort-wrap select {
+    width: 100%;
+  }
 }
 
 .filters-panel { display: flex; flex-direction: column; gap: 14px; }
