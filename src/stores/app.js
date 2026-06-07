@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import api from '../services/api'
-import { useToast } from '../composables/useToast'
+// import { useToast } from '../composables/useToast'
+import { useToast } from "vue-toastification";
 
 // ─── IndexedDB helpers ────────────────────────────────────────────────────────
 // Stores raw File blobs so they survive page refreshes while offline.
@@ -133,7 +134,7 @@ export const useAppStore = defineStore('app', () => {
 
       user.value = frontendUser
       localStorage.setItem('ocr_user', JSON.stringify(frontendUser))
-      toast.success('Login successful!')
+      // toast.success('Login successful!')
       return true
     } catch (err) {
       error.value = err.message
@@ -193,7 +194,9 @@ export const useAppStore = defineStore('app', () => {
       return response
     } catch (err) {
       error.value = err.message
-      toast.error(err.message)
+      if(err.message !== "No token provided."){
+        toast.error(err.message)
+      }
       return null
     } finally {
       loading.value = false

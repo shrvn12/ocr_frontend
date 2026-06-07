@@ -163,7 +163,8 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
-import { useToast } from '../composables/useToast'
+// import { useToast } from '../composables/useToast'
+import { useToast } from "vue-toastification";
 import StatusBadge from '../components/StatusBadge.vue'
 import ConfidenceBadge from '../components/ConfidenceBadge.vue'
 import AuditLogTable from '../components/AuditLogTable.vue'
