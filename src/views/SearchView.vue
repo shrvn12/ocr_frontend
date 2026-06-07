@@ -134,25 +134,39 @@ const sorted = computed(() => {
 <style scoped>
 .search-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px minmax(0, 1fr);
   gap: 16px;
   align-items: start;
+  min-width: 0;
 }
 
 @media (max-width: 760px) {
-  .search-layout { grid-template-columns: 1fr; }
+  .search-layout {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
   .sort-wrap,
   .sort-wrap select {
     width: 100%;
   }
 }
 
+.filters-panel,
+.results-panel {
+  min-width: 0;
+}
+
 .filters-panel { display: flex; flex-direction: column; gap: 14px; }
+
+.results-panel {
+  overflow: hidden;
+}
 
 .filter-group { display: flex; flex-direction: column; gap: 5px; }
 
-.range-wrap { display: flex; align-items: center; gap: 10px; }
-.range-wrap input[type=range] { flex: 1; accent-color: var(--accent); }
+.range-wrap { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.range-wrap input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
 .range-val { font-size: 11px; color: var(--text-2); min-width: 30px; text-align: right; }
 
 .sort-wrap { display: flex; align-items: center; }

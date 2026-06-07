@@ -204,6 +204,13 @@ tbody tr:last-child td { border-bottom: none; }
 .justify-between { justify-content: space-between; }
 .grid { display: grid; }
 
+.render-toast-subtext {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.35;
+  opacity: 0.72;
+}
+
 @media (max-width: 760px) {
   body {
     font-size: 13px;

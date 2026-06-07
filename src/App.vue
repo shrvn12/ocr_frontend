@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { h, onMounted } from 'vue'
 import { useToast } from 'vue-toastification'
 import { useAppStore } from './stores/app'
 import AppSidebar from './components/AppSidebar.vue'
@@ -27,14 +27,21 @@ onMounted(() => {
 async function checkBackendHealth() {
   let waitingToastId = null
   const slowTimer = setTimeout(() => {
-    waitingToastId = toast.info('waiting for render to spin up', {
-      timeout: false,
-      closeOnClick: false,
-    })
+    waitingToastId = toast.info(
+      h('div', { class: 'render-toast' }, [
+        h('div', 'waiting for render to spin up'),
+        h('div', { class: 'render-toast-subtext' }, 'this may take upto 50 seconds'),
+      ]),
+      {
+        timeout: false,
+        closeOnClick: false,
+      }
+    )
   }, 3000)
 
   try {
     await api.checkHealth()
+    toast.success('render booted up')
   } catch (error) {
     console.error('Backend health check failed:', error)
   } finally {

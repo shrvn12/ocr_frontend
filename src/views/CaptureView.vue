@@ -227,11 +227,12 @@ onUnmounted(() => stopCamera())
 .camera-live { display: flex; flex-direction: column; gap: 12px; }
 
 .camera-video {
+  display: block;
   width: 100%;
+  max-height: min(65vh, 420px);
   border-radius: var(--radius-sm);
   background: #000;
-  max-height: 300px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .camera-controls {
@@ -244,8 +245,9 @@ onUnmounted(() => stopCamera())
 .preview-area { display: flex; flex-direction: column; gap: 12px; }
 
 .preview-img {
+  display: block;
   width: 100%;
-  max-height: 280px;
+  max-height: min(65vh, 420px);
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
@@ -307,6 +309,11 @@ onUnmounted(() => stopCamera())
   .camera-area,
   .dropzone {
     padding: 24px 14px;
+  }
+
+  .camera-video,
+  .preview-img {
+    max-height: 70vh;
   }
 
   .camera-controls,
