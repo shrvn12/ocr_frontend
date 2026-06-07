@@ -25,7 +25,21 @@
         </button>
       </form>
 
-      <p class="login-hint">Demo: any email/password</p>
+      <div class="demo-logins">
+        <p class="demo-title">Demo logins</p>
+        <div class="demo-row">
+          <span>Admin</span>
+          <code>admin@ocr.dev / Admin@1234</code>
+        </div>
+        <div class="demo-row">
+          <span>Reviewer</span>
+          <code>reviewer@ocr.dev / Review@1234</code>
+        </div>
+        <div class="demo-row">
+          <span>Uploader</span>
+          <code>uploader@ocr.dev / Upload@1234</code>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -111,11 +125,51 @@ async function submit() {
   border-radius: var(--radius-sm);
 }
 
-.login-hint {
-  text-align: center;
+.demo-logins {
   margin-top: 20px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.demo-title {
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.demo-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
   font-size: 12px;
   color: var(--text-3);
+}
+
+.demo-row + .demo-row {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.demo-row span {
+  flex: 0 0 58px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.demo-row code {
+  display: block;
+  overflow-wrap: anywhere;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-1);
+  background: transparent;
 }
 
 @media (max-width: 520px) {

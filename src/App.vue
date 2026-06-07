@@ -28,6 +28,7 @@ onMounted(() => {
 
 async function checkBackendHealth() {
   let waitingToastId = null
+  let backendReady = false
   const slowTimer = setTimeout(() => {
     waitingToastId = toast.info(
       h('div', { class: 'render-toast' }, [
@@ -43,13 +44,16 @@ async function checkBackendHealth() {
 
   try {
     await api.checkHealth()
-    toast.success('render booted up')
+    backendReady = true
   } catch (error) {
     console.error('Backend health check failed:', error)
   } finally {
     clearTimeout(slowTimer)
     if (waitingToastId !== null) {
       toast.dismiss(waitingToastId)
+      if (backendReady) {
+        toast.success('render booted up')
+      }
     }
   }
 }

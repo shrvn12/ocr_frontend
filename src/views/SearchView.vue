@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <DocumentTable :docs="sorted" />
+        <DocumentTable :docs="sorted" show-scroll-cue />
       </div>
     </div>
   </div>
