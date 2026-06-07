@@ -58,3 +58,31 @@ async function checkBackendHealth() {
   }
 }
 </script>
+
+<style scoped>
+/* ── Desktop: sidebar left, content right ── */
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100svh;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;        /* prevent flex blowout on wide content */
+  overflow-y: auto;
+}
+
+/* ── Mobile: sidebar on top, content below ── */
+@media (max-width: 760px) {
+  .layout {
+    flex-direction: column;
+    min-height: 100svh;
+  }
+
+  .main-content {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+</style>

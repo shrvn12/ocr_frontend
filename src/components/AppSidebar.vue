@@ -1,10 +1,27 @@
 <template>
   <aside class="sidebar">
-    <div class="sidebar-brand">
-      <span class="brand-icon">⬡</span>
-      <span class="brand-name">DocScan</span>
+
+    <!-- Row 1 (mobile: brand left, avatar+logout right) -->
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-name">DocScan</span>
+      </div>
+
+      <!-- shown only on mobile, in the top-right corner -->
+      <div class="mobile-user">
+        <div class="user-avatar">{{ initials }}</div>
+        <button class="logout-btn" @click="logout" title="Logout">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
+    <!-- Row 2: nav links -->
     <nav class="sidebar-nav">
       <RouterLink
         v-for="item in navItems"
@@ -18,12 +35,7 @@
       </RouterLink>
     </nav>
 
-    <div class="sidebar-footer">
-      <div class="logout-section">
-        <p @click="logout" title="Logout" class="logout-link">Logout</p>
-      </div>
-    </div>
-
+    <!-- Desktop-only footer: avatar + name + logout -->
     <div class="sidebar-footer">
       <div class="user-info">
         <div class="user-avatar">{{ initials }}</div>
@@ -32,10 +44,15 @@
           <div class="user-role">{{ roleLabel }}</div>
         </div>
       </div>
-      <!-- <button class="logout-btn" @click="logout" title="Logout">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      </button> -->
+      <button class="logout-btn" @click="logout" title="Logout">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
     </div>
+
   </aside>
 </template>
 
@@ -69,12 +86,8 @@ const ROLE_LABELS = {
   admin:          'Admin / Auditor',
 }
 
-const roleLabel = computed(() => ROLE_LABELS[store.user?.role] ?? store.user?.role)
-
-const initials = computed(() => {
-  const name = store.user?.name || ''
-  return name.slice(0, 2).toUpperCase()
-})
+const roleLabel  = computed(() => ROLE_LABELS[store.user?.role] ?? store.user?.role)
+const initials   = computed(() => (store.user?.name || '').slice(0, 2).toUpperCase())
 
 function logout() {
   store.logout()
@@ -83,6 +96,9 @@ function logout() {
 </script>
 
 <style scoped>
+/* ────────────────────────────────────────────
+   Desktop — vertical sidebar column
+──────────────────────────────────────────── */
 .sidebar {
   width: 200px;
   min-width: 200px;
@@ -92,6 +108,15 @@ function logout() {
   height: 100vh;
   position: sticky;
   top: 0;
+  flex-shrink: 0;
+}
+
+/* sidebar-top: only brand visible on desktop */
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .sidebar-brand {
@@ -99,21 +124,13 @@ function logout() {
   align-items: center;
   gap: 10px;
   padding: 20px 18px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.brand-icon {
-  font-size: 18px;
-  color: var(--accent);
-  line-height: 1;
-}
+.brand-icon  { font-size: 18px; color: var(--accent); line-height: 1; }
+.brand-name  { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
 
-.brand-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.02em;
-}
+/* mobile-user hidden on desktop */
+.mobile-user { display: none; }
 
 .sidebar-nav {
   flex: 1;
@@ -136,15 +153,11 @@ function logout() {
   transition: background 0.12s, color 0.12s;
 }
 
-.nav-item:hover { background: var(--sidebar-hover); color: #fff; }
-
-.nav-active {
-  background: var(--sidebar-active-bg) !important;
-  color: var(--sidebar-active) !important;
-}
+.nav-item:hover  { background: var(--sidebar-hover); color: #fff; }
+.nav-active      { background: var(--sidebar-active-bg) !important; color: var(--sidebar-active) !important; }
 
 .sidebar-footer {
-  padding: 14px 14px 16px;
+  padding: 14px;
   border-top: 1px solid rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
@@ -152,7 +165,8 @@ function logout() {
   gap: 8px;
 }
 
-.user-info { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.user-info   { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.user-details { min-width: 0; }
 
 .user-avatar {
   width: 30px;
@@ -167,8 +181,6 @@ function logout() {
   justify-content: center;
   flex-shrink: 0;
 }
-
-.user-details { min-width: 0; }
 
 .user-name {
   font-size: 12.5px;
@@ -194,61 +206,81 @@ function logout() {
   cursor: pointer;
   padding: 5px;
   border-radius: 4px;
-  transition: color 0.12s, background 0.12s;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
+  transition: color 0.12s, background 0.12s;
+  flex-shrink: 0;
 }
 
-.logout-link {
-  font-size: 12.5px;
-  color: #fff;
-  cursor: pointer;
-  transition: color 0.12s;
-  text-align: center;
-}
+.logout-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
-.logout-section {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-.logout-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
+/* ────────────────────────────────────────────
+   Mobile — two-row top navbar
+   Row 1: brand (left)  +  avatar & logout (right)
+   Row 2: nav links (scrollable row)
+──────────────────────────────────────────── */
 @media (max-width: 760px) {
   .sidebar {
     width: 100%;
     min-width: 0;
     height: auto;
+    min-height: unset;
     position: sticky;
+    top: 0;
     z-index: 20;
     box-shadow: var(--shadow-md);
   }
 
-  .sidebar-brand {
-    padding: 12px 14px;
+  /* Row 1 */
+  .sidebar-top {
+    padding: 0 12px 0 0;   /* right padding so logout isn't flush to edge */
   }
 
+  .sidebar-brand {
+    padding: 10px 14px;
+  }
+
+  /* show avatar + logout in top-right on mobile */
+  .mobile-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-user .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .mobile-user .logout-btn {
+    color: rgba(255,255,255,0.55);
+    padding: 7px;
+    scale: 1.1;
+  }
+
+  /* Row 2 */
   .sidebar-nav {
     flex: none;
     flex-direction: row;
-    gap: 6px;
+    gap: 4px;
+    padding: 0 10px 8px;
     overflow-x: auto;
-    padding: 8px 10px 10px;
     scrollbar-width: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 6px;
   }
 
-  .sidebar-nav::-webkit-scrollbar {
-    display: none;
-  }
+  .sidebar-nav::-webkit-scrollbar { display: none; }
 
   .nav-item {
     flex: 0 0 auto;
-    padding: 8px 10px;
+    padding: 7px 10px;
+    font-size: 13px;
   }
 
-  .sidebar-footer {
-    display: none;
-  }
+  /* hide desktop footer on mobile — user controls live in sidebar-top */
+  .sidebar-footer { display: none; }
 }
 </style>
