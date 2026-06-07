@@ -340,7 +340,6 @@ export const useAppStore = defineStore('app', () => {
   window.addEventListener('online', async () => {
     const hasQueued = uploadQueue.value.some(i => i.status === 'queued')
     if (hasQueued) {
-      toast.info('Back online — resuming uploads…')
       await processQueue()
     }
   })

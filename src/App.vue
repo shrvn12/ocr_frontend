@@ -16,12 +16,14 @@ import { useAppStore } from './stores/app'
 import AppSidebar from './components/AppSidebar.vue'
 import ToastContainer from './components/ToastContainer.vue'
 import api from './services/api'
+import { startNetworkToasts } from './services/networkToasts'
 
 const store = useAppStore()
 const toast = useToast()
 
 onMounted(() => {
   checkBackendHealth()
+  startNetworkToasts()
 })
 
 async function checkBackendHealth() {
