@@ -72,17 +72,17 @@
           <!-- Note -->
           <div class="form-group" style="margin-top: 16px;">
             <label class="form-label">Review Note</label>
-            <textarea v-model="note" rows="2" placeholder="Optional note for audit log…" style="resize:vertical;"></textarea>
+            <textarea v-model="note" rows="2" placeholder="Audit note..." style="resize:vertical;"></textarea>
           </div>
 
           <!-- Actions -->
           <div class="action-bar" v-if="canAct">
-            <button class="btn btn-danger" @click="reject" :disabled="!canSubmitReview || approveLoading || rejectLoading">
+            <button class="btn btn-danger" @click="reject" :disabled="approveLoading || rejectLoading">
               <svg v-if="!rejectLoading" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               <svg v-else class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
               {{ rejectLoading ? 'Rejecting…' : 'Reject' }}
             </button>
-            <button class="btn btn-success" @click="approve" :disabled="!canSubmitReview || approveLoading || rejectLoading">
+            <button class="btn btn-success" @click="approve" :disabled="approveLoading || rejectLoading">
               <svg v-if="!approveLoading" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               <svg v-else class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
               {{ approveLoading ? 'Approving…' : 'Approve' }}
@@ -213,7 +213,7 @@ const canSubmitReview = computed(() => note.value.trim().length > 0)
 
 function requireReviewNote() {
   if (canSubmitReview.value) return true
-  toast.error('Please add a review note before submitting')
+  toast.warning('Please add a review note before submitting')
   return false
 }
 
