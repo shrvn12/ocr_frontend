@@ -12,13 +12,13 @@
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>ID</th>
             <th>File Name</th>
             <th>Status</th>
             <th>Confidence</th>
             <th>Created</th>
             <th>By</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -26,15 +26,15 @@
             <td colspan="7" style="text-align:center; padding: 32px; color: var(--text-3);">No documents found</td>
           </tr>
           <tr v-for="doc in docs" :key="doc.id">
+            <td>
+              <RouterLink :to="`/review/${doc.id}`" class="btn btn-ghost btn-sm">Review</RouterLink>
+            </td>
             <td><span class="mono text-sm">{{ doc.id.slice(0, 8) }}...</span></td>
             <td>{{ doc.originalName }}</td>
             <td><StatusBadge :status="doc.status" /></td>
             <td><ConfidenceBadge :score="getAvgConfidence(doc)" /></td>
             <td class="text-muted text-sm">{{ formatDate(doc.createdAt) }}</td>
             <td class="text-muted text-sm">{{ doc.uploadedBy?.name || '-' }}</td>
-            <td>
-              <RouterLink :to="`/review/${doc.id}`" class="btn btn-ghost btn-sm">Review</RouterLink>
-            </td>
           </tr>
         </tbody>
       </table>
