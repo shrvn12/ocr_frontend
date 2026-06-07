@@ -5,6 +5,10 @@
         <span class="login-brand-icon">⬡</span>
         <h1 class="login-title">DocScan OCR</h1>
         <p class="login-subtitle">Document capture and review system</p>
+        <br>
+        <p class="login-subtitle" style="font-size: 12px; color: var(--warning);">
+          Render backend may take upto 50 seconds to start
+        </p>
       </div>
 
       <form class="login-form" @submit.prevent="submit">
