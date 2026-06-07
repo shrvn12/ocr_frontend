@@ -77,12 +77,12 @@
 
           <!-- Actions -->
           <div class="action-bar" v-if="canAct">
-            <button class="btn btn-danger" @click="reject" :disabled="approveLoading || rejectLoading">
+            <button class="btn btn-danger" @click="reject" :disabled="!canSubmitReview || approveLoading || rejectLoading">
               <svg v-if="!rejectLoading" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               <svg v-else class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
               {{ rejectLoading ? 'Rejecting…' : 'Reject' }}
             </button>
-            <button class="btn btn-success" @click="approve" :disabled="approveLoading || rejectLoading">
+            <button class="btn btn-success" @click="approve" :disabled="!canSubmitReview || approveLoading || rejectLoading">
               <svg v-if="!approveLoading" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
               <svg v-else class="spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
               {{ approveLoading ? 'Approving…' : 'Approve' }}
@@ -209,6 +209,13 @@ watch(doc, (d) => {
 
 const canAct = computed(() => doc.value && doc.value.status === 'READY_FOR_REVIEW')
 const canEdit = computed(() => store.user?.role !== 'field_operator')
+const canSubmitReview = computed(() => note.value.trim().length > 0)
+
+function requireReviewNote() {
+  if (canSubmitReview.value) return true
+  toast.error('Please add a review note before submitting')
+  return false
+}
 
 // Only update local field state, don't send API calls
 function onFieldInput(fieldName, value) {
@@ -237,6 +244,8 @@ function getFieldCorrections() {
 }
 
 async function approve() {
+  if (!requireReviewNote()) return
+
   try {
     approveLoading.value = true
     
@@ -268,6 +277,8 @@ async function approve() {
 }
 
 async function reject() {
+  if (!requireReviewNote()) return
+
   try {
     rejectLoading.value = true
     await api.rejectDocument(doc.value.id, note.value)
